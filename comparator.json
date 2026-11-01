@@ -1,0 +1,10 @@
+{
+  "challenge_module": "LebesgueChallenge",
+  "solution_module": "LebesgueSolution",
+  "theorem_names": [
+    "LebesgueTheorem.light_star"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

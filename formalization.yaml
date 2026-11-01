@@ -1,0 +1,131 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Light 3-stars in planar graphs of minimum degree five (Jendrol'–Madaras)"
+  description: >-
+    A Lean 4 / Mathlib formalization of Theorem 1 of Jendrol' and Madaras (1996), for finite simple
+    graphs with the combinatorial planarity (genus-zero rotation systems) of the registered entry
+    Kuratowski's theorem: every planar graph of minimum degree at least five has a vertex X of
+    degree five with three distinct neighbours A1, A2, A3 such that deg A1 = 5, deg A2 ≤ 6 and
+    deg A3 ≤ 7, or deg A1 = deg A2 = deg A3 = 6 (light_star). In particular there is a 5-vertex with
+    three neighbours of degree at most seven ("Lebesgue's star"). One statement. The proof is the
+    authors' discharging (strong, semi-strong and weak neighbours), split over the two sides of each
+    edge and run on the rotation system with face charges instead of triangulating; the local
+    analyses at 5-vertices (32768 configurations, degrees capped at eight) and at 7-vertices (16384
+    configurations) are checked by decide in the kernel.
+  authors:
+    - "Juan Pablo Traverso Gianini"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Juan Pablo Traverso Gianini"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C10", "05C07"]
+
+sources:
+  - title: "On light subgraphs in plane graphs of minimum degree five"
+    authors:
+      - "Stanislav Jendrol'"
+      - "Tomáš Madaras"
+    id: "doi:10.7151/dmgt.1035"
+    type: "paper"
+    location: "Discuss. Math. Graph Theory 16 (1996) 207–217: Theorem 1 (light 3-stars) and its proof, pp. 209–211."
+    relationship: "formalizes"
+    note: >-
+      Theorem 1 is formalized (the sharpness examples are not). The proof keeps the authors' charges
+      (a 7-vertex sends 1/3 to a strong and 1/6 to a semi-strong 5-neighbour; a vertex of degree at
+      least eight sends 1/2, 3/8 and 1/4 to strong, semi-strong and weak 5-neighbours), written as
+      one amount per side of the edge (1/6 or 0 from a 7-vertex; 1/4 or 1/8 from a vertex of degree
+      at least eight, according as the third vertex of the triangle on that side has degree at least
+      six or five). Instead of adding diagonals to reach a triangulation, every face of length at
+      least four gives 1/2 to each corner and counts as a heavy side. The case analysis of the
+      article (cases (1)–(7)) is replaced by exhaustive checks. The formalization is by a different
+      author; the article's authors were not involved.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Light subgraphs of graphs embedded in the plane—A survey"
+    authors:
+      - "Stanislav Jendrol'"
+      - "Heinz-Jürgen Voss"
+    id: "doi:10.1016/j.disc.2012.11.007"
+    type: "paper"
+    location: "Discrete Math. 313 (2013) 406–421"
+    relationship: "background"
+    note: "Context on light stars, including Lebesgue's 1940 results and their improvements."
+    license: "all rights reserved"
+    author_endorsement: "n/a"
+
+related_formalizations:
+  - id: "jtraverso/borodin-light-triangles @ c85ca2e (Palomar submission pending)"
+    relationship: "builds-on"
+    note: >-
+      Pinned dependency: orbit lemmas and the vertex enumeration of its discharging, and through it
+      jtraverso/kotzig-light-edges @ 0e9f2a2 (the dart-level form of Euler's formula, face lengths,
+      sums over orbits).
+  - id: "PALOMAR-2026-10-15-000018 (jtraverso/kuratowski @ 696ec89)"
+    relationship: "builds-on"
+    note: >-
+      Through the Kotzig package. The definitions of planarity (numClasses to IsPlanar) are copied
+      verbatim from its Challenge, and its library supplies plane maps, the face permutation and
+      Euler's formula.
+
+status:
+  scope: >-
+    The statement is proved for every finite simple planar graph of minimum degree at least five
+    (on a nonempty vertex type). Known gaps relative to the source: the sharpness examples for the
+    bounds 6 and 7, and Theorems 2 (light 4-stars), 3 (light 4-paths) and 5 and Corollary 4 of the
+    article, are not formalized; the Heffter–Edmonds–Ringel correspondence between genus-zero
+    rotation systems and sphere embeddings is not formalized (as in the Kuratowski entry).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Opus 5.5"]
+      framework: "Claude Code (Anthropic)"
+      tool_setup: >-
+        Adapted the discharging, wrote the whole Lean development (Lebesgue/), the
+        Challenge/Solution pair and the packaging under the author's direction. Checked with a local
+        build, a comparison of the elaborated Challenge and Solution statements and definitions
+        (pp.all), and #print axioms (Lean v4.35.0-rc3, Mathlib
+        c55e6e786f49471c72fbddbec5415808896aec1e).
+      cost:
+        wall_time: "a few hours"
+        spend_usd: "subscription-based"
+        hardware: "local machine"
+      prompting_notes: "Natural-language instructions in Spanish, directed by the author."
+  spend_usd: "not tracked"
+  notes: >-
+    The Lean development is AI-written under the author's direction and mechanically verified: no
+    sorry, axioms limited to propext, Classical.choice and Quot.sound, identical elaborated
+    statements and definitions in the Challenge and the Solution.
+
+fidelity:
+  divergences: >-
+    Graphs are Mathlib SimpleGraphs on a finite vertex type; degrees are Mathlib's degree. Planarity
+    is the existence of a genus-zero rotation system (the registered Kuratowski entry's definition)
+    rather than a topological embedding; the article's class G(5) (connected plane graphs of minimum
+    degree five without faces bounded by at most two edges) contains the simple ones, and connectivity
+    is not assumed here. The star is stated as a vertex of degree five with three distinct neighbours;
+    the statement assumes a nonempty vertex type.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Claude Opus 5.5 (AI agent in Claude Code, acting for the author)"
+  notes: >-
+    Agent review by Claude Opus 5.5, distinct from the mechanical verification: the agent checked
+    the statements and the definitions against the sources. No independent human review of the
+    formalization has been performed.
+
+alignment:
+  namespace: "LebesgueTheorem"
+  statements:
+    - {source: "Jendrol'–Madaras 1996, Theorem 1", lean: "LebesgueTheorem.light_star", module: "LebesgueChallenge", status: "proved"}
+
+acknowledgements: >-
+  Mathlib and the Lean community.
