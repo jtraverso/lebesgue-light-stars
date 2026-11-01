@@ -8,7 +8,7 @@ module
 public import Mathlib
 
 /-!
-# Light `3`-stars in planar graphs of minimum degree five
+# Light stars and paths in planar graphs of minimum degree five
 
 **Jendrol' and Madaras (1996), Theorem 1.** Every finite simple planar graph of minimum degree
 at least five contains a star `K₁,₃ = [X; A₁, A₂, A₃]` whose centre `X` has degree five and whose
@@ -16,6 +16,14 @@ leaves have degrees `deg A₁ = 5`, `deg A₂ ≤ 6`, `deg A₃ ≤ 7`, or `deg 
 (`LebesgueTheorem.light_star`). The bounds `6` and `7` are best possible (not formalized).
 In particular every such graph has a `5`-vertex with three neighbours of degree at most seven,
 a form of Lebesgue's results on light stars (1940).
+
+**Theorem 2.** Every such graph contains a star `K₁,₄` whose centre has degree five and whose
+leaves have degree at most ten (`LebesgueTheorem.light_star4`).
+
+**Theorem 3.** Every such graph contains a path on four vertices whose degrees sum to at most
+`23` (`LebesgueTheorem.light_path4`).
+
+The bounds `10` and `23` are best possible (not formalized).
 
 ## Planarity
 
@@ -100,6 +108,21 @@ theorem light_star [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v
     ∃ x a₁ a₂ a₃ : V, G.Adj x a₁ ∧ G.Adj x a₂ ∧ G.Adj x a₃ ∧ a₁ ≠ a₂ ∧ a₁ ≠ a₃ ∧ a₂ ≠ a₃ ∧
       G.degree x = 5 ∧ ((G.degree a₁ = 5 ∧ G.degree a₂ ≤ 6 ∧ G.degree a₃ ≤ 7) ∨
         (G.degree a₁ = 6 ∧ G.degree a₂ = 6 ∧ G.degree a₃ = 6)) := by
+  sorry
+
+/-- **Jendrol' and Madaras (1996), Theorem 2.** A finite simple planar graph of minimum degree
+at least five has a vertex of degree five with four distinct neighbours of degree at most ten. -/
+theorem light_star4 [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v) :
+    ∃ x a₁ a₂ a₃ a₄ : V, G.Adj x a₁ ∧ G.Adj x a₂ ∧ G.Adj x a₃ ∧ G.Adj x a₄ ∧ a₁ ≠ a₂ ∧ a₁ ≠ a₃ ∧
+      a₁ ≠ a₄ ∧ a₂ ≠ a₃ ∧ a₂ ≠ a₄ ∧ a₃ ≠ a₄ ∧ G.degree x = 5 ∧ G.degree a₁ ≤ 10 ∧
+      G.degree a₂ ≤ 10 ∧ G.degree a₃ ≤ 10 ∧ G.degree a₄ ≤ 10 := by
+  sorry
+
+/-- **Jendrol' and Madaras (1996), Theorem 3.** A finite simple planar graph of minimum degree
+at least five has a path on four vertices whose degrees sum to at most `23`. -/
+theorem light_path4 [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v) :
+    ∃ a b c d : V, a ≠ b ∧ a ≠ c ∧ a ≠ d ∧ b ≠ c ∧ b ≠ d ∧ c ≠ d ∧ G.Adj a b ∧ G.Adj b c ∧
+      G.Adj c d ∧ G.degree a + G.degree b + G.degree c + G.degree d ≤ 23 := by
   sorry
 
 end LebesgueTheorem

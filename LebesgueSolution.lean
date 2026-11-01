@@ -99,4 +99,19 @@ theorem light_star [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v
         (G.degree a₁ = 6 ∧ G.degree a₂ = 6 ∧ G.degree a₃ = 6)) :=
   Lebesgue.light_star ((isPlanar_iff_lib G).1 hG) hδ
 
+/-- **Jendrol' and Madaras (1996), Theorem 2.** A finite simple planar graph of minimum degree
+at least five has a vertex of degree five with four distinct neighbours of degree at most ten. -/
+theorem light_star4 [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v) :
+    ∃ x a₁ a₂ a₃ a₄ : V, G.Adj x a₁ ∧ G.Adj x a₂ ∧ G.Adj x a₃ ∧ G.Adj x a₄ ∧ a₁ ≠ a₂ ∧ a₁ ≠ a₃ ∧
+      a₁ ≠ a₄ ∧ a₂ ≠ a₃ ∧ a₂ ≠ a₄ ∧ a₃ ≠ a₄ ∧ G.degree x = 5 ∧ G.degree a₁ ≤ 10 ∧
+      G.degree a₂ ≤ 10 ∧ G.degree a₃ ≤ 10 ∧ G.degree a₄ ≤ 10 := 
+  Lebesgue.light_star4 ((isPlanar_iff_lib G).1 hG) hδ
+
+/-- **Jendrol' and Madaras (1996), Theorem 3.** A finite simple planar graph of minimum degree
+at least five has a path on four vertices whose degrees sum to at most `23`. -/
+theorem light_path4 [Nonempty V] (hG : IsPlanar G) (hδ : ∀ v, 5 ≤ G.degree v) :
+    ∃ a b c d : V, a ≠ b ∧ a ≠ c ∧ a ≠ d ∧ b ≠ c ∧ b ≠ d ∧ c ≠ d ∧ G.Adj a b ∧ G.Adj b c ∧
+      G.Adj c d ∧ G.degree a + G.degree b + G.degree c + G.degree d ≤ 23 := 
+  Lebesgue.light_path4 ((isPlanar_iff_lib G).1 hG) hδ
+
 end LebesgueTheorem

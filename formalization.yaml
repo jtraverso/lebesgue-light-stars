@@ -2,18 +2,20 @@
 version: "v0.4"
 
 project:
-  name: "Light 3-stars in planar graphs of minimum degree five (Jendrol'–Madaras)"
+  name: "Light stars and paths in planar graphs of minimum degree five (Jendrol'–Madaras)"
   description: >-
-    A Lean 4 / Mathlib formalization of Theorem 1 of Jendrol' and Madaras (1996), for finite simple
-    graphs with the combinatorial planarity (genus-zero rotation systems) of the registered entry
-    Kuratowski's theorem: every planar graph of minimum degree at least five has a vertex X of
-    degree five with three distinct neighbours A1, A2, A3 such that deg A1 = 5, deg A2 ≤ 6 and
-    deg A3 ≤ 7, or deg A1 = deg A2 = deg A3 = 6 (light_star). In particular there is a 5-vertex with
-    three neighbours of degree at most seven ("Lebesgue's star"). One statement. The proof is the
-    authors' discharging (strong, semi-strong and weak neighbours), split over the two sides of each
-    edge and run on the rotation system with face charges instead of triangulating; the local
-    analyses at 5-vertices (32768 configurations, degrees capped at eight) and at 7-vertices (16384
-    configurations) are checked by decide in the kernel.
+    A Lean 4 / Mathlib formalization of Theorems 1, 2 and 3 of Jendrol' and Madaras (1996), for
+    finite simple graphs with the combinatorial planarity (genus-zero rotation systems) of the
+    registered entry Kuratowski's theorem. Every planar graph of minimum degree at least five has:
+    a vertex X of degree five with three distinct neighbours A1, A2, A3 such that deg A1 = 5,
+    deg A2 ≤ 6 and deg A3 ≤ 7, or deg A1 = deg A2 = deg A3 = 6 (light_star, Theorem 1; in
+    particular a 5-vertex with three neighbours of degree at most seven, "Lebesgue's star"); a vertex
+    of degree five with four distinct neighbours of degree at most ten (light_star4, Theorem 2); and
+    a path on four vertices whose degrees sum to at most 23 (light_path4, Theorem 3). Three
+    statements. The proofs are discharging arguments run on the rotation system with face charges
+    instead of triangulating or using edge-maximal counterexamples; the local analyses (32768,
+    16384, 32768 and 100000 configurations) and the parity of an 11-cycle are checked by decide in
+    the kernel.
   authors:
     - "Juan Pablo Traverso Gianini"
   license: "Apache-2.0"
@@ -31,18 +33,26 @@ sources:
       - "Tomáš Madaras"
     id: "doi:10.7151/dmgt.1035"
     type: "paper"
-    location: "Discuss. Math. Graph Theory 16 (1996) 207–217: Theorem 1 (light 3-stars) and its proof, pp. 209–211."
+    location: >-
+      Discuss. Math. Graph Theory 16 (1996) 207–217: Theorem 1 (light 3-stars, pp. 209–211),
+      Theorem 2 (light 4-stars, pp. 211–213) and Theorem 3 (light 4-paths, pp. 213–214), with their
+      proofs.
     relationship: "formalizes"
     note: >-
-      Theorem 1 is formalized (the sharpness examples are not). The proof keeps the authors' charges
+      Theorems 1–3 are formalized (the sharpness examples are not). For Theorem 1 the proof keeps the authors' charges
       (a 7-vertex sends 1/3 to a strong and 1/6 to a semi-strong 5-neighbour; a vertex of degree at
       least eight sends 1/2, 3/8 and 1/4 to strong, semi-strong and weak 5-neighbours), written as
       one amount per side of the edge (1/6 or 0 from a 7-vertex; 1/4 or 1/8 from a vertex of degree
       at least eight, according as the third vertex of the triangle on that side has degree at least
       six or five). Instead of adding diagonals to reach a triangulation, every face of length at
       least four gives 1/2 to each corner and counts as a heavy side. The case analysis of the
-      article (cases (1)–(7)) is replaced by exhaustive checks. The formalization is by a different
-      author; the article's authors were not involved.
+      article (cases (1)–(7)) is replaced by exhaustive checks. For Theorem 2, the 11-vertex exception
+      of Rule 2 is extended: it also applies when the corner after the next neighbour is not on a
+      triangle, and the remaining case (an 11-vertex with eleven 5-neighbours on triangles) is closed
+      by a parity argument on the outer ring. For Theorem 3, the rule (deg A − 6)/m(A), which needs an
+      edge-maximal counterexample to be a triangulation (Propositions 1 and 2), is replaced by fixed
+      amounts (1/3, 1/2, 1/3 from vertices of degree 7, 8, at least 9) and face charges. The
+      formalization is by a different author; the article's authors were not involved.
     license: "unknown"
     author_endorsement: "not-contacted"
   - title: "Light subgraphs of graphs embedded in the plane—A survey"
@@ -73,10 +83,9 @@ related_formalizations:
 
 status:
   scope: >-
-    The statement is proved for every finite simple planar graph of minimum degree at least five
+    The three statements are proved for every finite simple planar graph of minimum degree at least five
     (on a nonempty vertex type). Known gaps relative to the source: the sharpness examples for the
-    bounds 6 and 7, and Theorems 2 (light 4-stars), 3 (light 4-paths) and 5 and Corollary 4 of the
-    article, are not formalized; the Heffter–Edmonds–Ringel correspondence between genus-zero
+    bounds 6, 7, 10 and 23, and Theorem 5 and Corollary 4 of the article, are not formalized; the Heffter–Edmonds–Ringel correspondence between genus-zero
     rotation systems and sphere embeddings is not formalized (as in the Kuratowski entry).
   sorry_count: 0
   sorry_in_definitions: 0
@@ -110,8 +119,9 @@ fidelity:
     is the existence of a genus-zero rotation system (the registered Kuratowski entry's definition)
     rather than a topological embedding; the article's class G(5) (connected plane graphs of minimum
     degree five without faces bounded by at most two edges) contains the simple ones, and connectivity
-    is not assumed here. The star is stated as a vertex of degree five with three distinct neighbours;
-    the statement assumes a nonempty vertex type.
+    is not assumed here (the article states Theorem 3 for connected graphs). Stars are stated as a
+    vertex of degree five with three, resp. four, distinct neighbours, and the path as four distinct
+    vertices with three consecutive adjacencies; the statements assume a nonempty vertex type.
 
 review:
   status: "agent-reviewed"
@@ -126,6 +136,8 @@ alignment:
   namespace: "LebesgueTheorem"
   statements:
     - {source: "Jendrol'–Madaras 1996, Theorem 1", lean: "LebesgueTheorem.light_star", module: "LebesgueChallenge", status: "proved"}
+    - {source: "Jendrol'–Madaras 1996, Theorem 2", lean: "LebesgueTheorem.light_star4", module: "LebesgueChallenge", status: "proved"}
+    - {source: "Jendrol'–Madaras 1996, Theorem 3", lean: "LebesgueTheorem.light_path4", module: "LebesgueChallenge", status: "proved"}
 
 acknowledgements: >-
   Mathlib and the Lean community.

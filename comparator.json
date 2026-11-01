@@ -2,9 +2,15 @@
   "challenge_module": "LebesgueChallenge",
   "solution_module": "LebesgueSolution",
   "theorem_names": [
-    "LebesgueTheorem.light_star"
+    "LebesgueTheorem.light_star",
+    "LebesgueTheorem.light_star4",
+    "LebesgueTheorem.light_path4"
   ],
   "definition_names": [],
-  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
   "enable_nanoda": true
 }
